@@ -23,7 +23,7 @@ const legend = (function () {
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.languages.registerDocumentSemanticTokensProvider(
-			{ language: 'algoritmik'}, new DocumentSemanticTokensProvider(), legend)
+			{ language: 'algoritmik', scheme: 'file'}, new DocumentSemanticTokensProvider(), legend)
 	);
 }
 
@@ -77,33 +77,52 @@ class DocumentSemanticTokensProvider implements vscode.DocumentSemanticTokensPro
 		const lines = text.split(/\r\n|\r|\n/);
 
 		let inComment = false;
-		let commentStart;
-		let commentOffset;
 
 		for (let i = 0; i < lines.length; i++) {
 			const line = lines[i];
 			let currentOffset = 0;
 			do {
-				const openOffset = line.indexOf('{', currentOffset);
-				if (openOffset === -1) {
-					break;
+				if(inComment){
+					const closeOffset = line.indexOf('}', currentOffset);
+					if( closeOffset === -1){ // komenin sampe ujung
+						r.push({
+							line: i,
+							startCharacter: currentOffset,
+							length: lines[i].length - currentOffset + 1,
+							tokenType: "comment",
+							tokenModifiers: []
+						});
+						break;
+					} else{
+						r.push({
+							line: i,
+							startCharacter: currentOffset,
+							length: closeOffset - currentOffset + 1,
+							tokenType: "comment",
+							tokenModifiers: []
+						});
+						currentOffset = closeOffset;
+						inComment = false;
+					}
+				} else{
+					const openOffset = line.indexOf('{', currentOffset);
+					if( openOffset !== -1){ // masuk komen,
+						inComment = true;
+						currentOffset = openOffset;
+						continue;
+					} else{
+						break;
+					}
+					
 				}
-				const closeOffset = line.indexOf('}', openOffset);
-				if (closeOffset === -1) {
-					break;
-				}
-				const tokenData = this._parseTextToken(line.substring(openOffset + 1, closeOffset));
-				r.push({
-					line: i,
-					startCharacter: openOffset + 1,
-					length: closeOffset - openOffset - 1,
-					tokenType: tokenData.tokenType,
-					tokenModifiers: tokenData.tokenModifiers
-				});
-				currentOffset = closeOffset;
+
 			} while (true);
 		}
 		return r;
+	}
+
+	private _setTextComment() {
+		
 	}
 
 	private _parseTextToken(text: string): { tokenType: string; tokenModifiers: string[]; } {
