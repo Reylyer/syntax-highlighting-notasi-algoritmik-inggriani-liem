@@ -17,6 +17,17 @@
     ],
     "main": "./out/extension.js",
     "contributes": {
+        "grammars": [
+            {
+                "language": "algoritmik",
+                "scopeName": "source.algoritmik",
+                "path": "./syntaxes/algoritmik.tmGrammar.json"
+            },{
+                "language": "abc",
+                "scopeName": "source.abc",
+                "path": "./syntaxes/abc.tmGrammar.json"
+            }
+        ],
         "languages": [
             {
                 "id": "algoritmik",
@@ -30,6 +41,10 @@
                     "Notasi Algoritmik",
                     "Notasi Algoritma"
                 ]
+            },
+            {
+                "id": "abc",
+                "extensions": [".abc"]
             }
         ]
     },

@@ -57,7 +57,7 @@ class DocumentSemanticTokensProvider implements vscode.DocumentSemanticTokensPro
 			return tokenTypes.size + 2;
 		}
 		return 0;
-	}
+	}	
 
 	private _encodeTokenModifiers(strTokenModifiers: string[]): number {
 		let result = 0;
@@ -81,47 +81,45 @@ class DocumentSemanticTokensProvider implements vscode.DocumentSemanticTokensPro
 		for (let i = 0; i < lines.length; i++) {
 			const line = lines[i];
 			let currentOffset = 0;
-			do {
-				if(inComment){
-					const closeOffset = line.indexOf('}', currentOffset);
-					if( closeOffset === -1){ // komenin sampe ujung
-						r.push({
-							line: i,
-							startCharacter: currentOffset,
-							length: lines[i].length - currentOffset + 1,
-							tokenType: "comment",
-							tokenModifiers: []
-						});
-						break;
-					} else{
-						r.push({
-							line: i,
-							startCharacter: currentOffset,
-							length: closeOffset - currentOffset + 1,
-							tokenType: "comment",
-							tokenModifiers: []
-						});
-						currentOffset = closeOffset;
-						inComment = false;
-					}
-				} else{
-					const openOffset = line.indexOf('{', currentOffset);
-					if( openOffset !== -1){ // masuk komen,
-						inComment = true;
-						currentOffset = openOffset;
-						continue;
-					} else{
-						break;
-					}
+			// do {
+			// 	if(inComment){
+			// 		const closeOffset = line.indexOf('}', currentOffset);
+			// 		if( closeOffset === -1){ // komenin sampe ujung
+			// 			r.push({
+			// 				line: i,
+			// 				startCharacter: currentOffset,
+			// 				length: lines[i].length - currentOffset + 1,
+			// 				tokenType: "comment",
+			// 				tokenModifiers: []
+			// 			});
+			// 			break;
+			// 		} else{
+			// 			r.push({
+			// 				line: i,
+			// 				startCharacter: currentOffset,
+			// 				length: closeOffset - currentOffset + 1,
+			// 				tokenType: "comment",
+			// 				tokenModifiers: []
+			// 			});
+			// 			currentOffset = closeOffset;
+			// 			inComment = false;
+			// 		}
+			// 	} else{
+			// 		const openOffset = line.indexOf('{', currentOffset);
+			// 		if( openOffset !== -1){ // masuk komen,
+			// 			inComment = true;
+			// 			currentOffset = openOffset;
+			// 			continue;
+			// 		} else { break; }
 					
-				}
+			// 	}
 
-			} while (true);
+			// } while (true);
 		}
 		return r;
 	}
 
-	private _setTextComment() {
+	private _handleComment() {
 		
 	}
 

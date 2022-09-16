@@ -1,25 +1,91 @@
 {
     "scopeName": "source.algoritmik",
-    "patterns": [{ "include": "#expression" }],
+    "patterns": [
+        { "include": "#main"}
+    ],
     "repository": {
-      "expression": {
-        "patterns": [{ "include": "#letter" }, { "include": "#paren-expression" }]
-      },
-      "letter": {
-        "match": "Program",
-        "name": "keyword.letter"
-      },
-      "paren-expression": {
-        "begin": "\\(",
-        "end": "\\)",
-        "beginCaptures": {
-          "0": { "name": "punctuation.paren.open" }
+        "main": {
+            "patterns": [
+                { "include" : "#comment"},
+                { "include" : "#block"},
+                { "include" : "#function-line"},
+                { "include" : "#square"},
+                { "include" : "#declaration-variable"},
+                { "include" : "#conditional"},
+                { "include" : "#loop"},
+                { "include" : "#operator-annotation"},
+                { "include" : "#operator-assignment"},
+                { "include" : "#control-flow"},
+                { "include" : "#operator-arithmetic"},
+                { "include" : "#operator-compare"},
+                { "include" : "#operator-bitwise"},
+                { "include" : "#datatype"}
+                
+            ]
         },
-        "endCaptures": {
-          "0": { "name": "punctuation.paren.close" }
+        "comment": {
+            "begin": "\\{",
+            "end": "\\}",
+            "name" : "comment.block.algoritmik",
+            "beginCaptures": {
+                "0": { "name": "punctuation.curlp.open" }
+            },
+            "endCaptures": {
+                "0": { "name": "punctuation.curlp.close" }
+            },
+            "patterns": [{ "include": "#main" }]
         },
-        "name": "expression.group",
-        "patterns": [{ "include": "#expression" }]
-      }
+        "block": {
+            "match": "kamus lokal|kamus|algoritma",
+            "name": "keyword.block.open.algoritmik"
+        },
+        "function-declaration": {
+
+        },
+        "square" : {
+            "match": "\\[|\\]",
+            "name": "meta.brace.square.algoritmik"
+        },
+        "function-line" : {
+            "begin": "program|function|procedure",
+            "end" : "\\n",
+            "name" : "storage.type.function.algoritmik"
+        },
+        "datatype": {
+            "match": "integer|boolean|real|character|array",
+            "name": "storage.type.primitive.algoritmik"
+        },
+        "conditional": {
+            "match": "if|then|depends on|else",
+            "name": "keyword.control.conditional.algoritmik"
+        },
+        "loop": {
+            "match": "traversal|iterate|stop|repeat|until|while|do",
+            "name": "keyword.control.loop.algoritmik"
+        },
+        "operator-annotation": {
+            "match": ":",
+            "name": "keyword.operator.type.annotation.algoritmik"
+        },
+        "operator-assignment": {
+            "match": "<-{1,2}",
+            "name": "keyword.operator.type.assignment.algoritmik"
+        },
+        "control-flow": {
+            "match": "-{1,2}>",
+            "name": "keyword.control.type.flow.algoritmik"
+        },
+        "operator-arithmetic": {
+            "match": "((\\+|\\-|\\*)|\\s(mod|div)\\s)",
+            "name" : "keyword.operator.type.arithmetic.algoritmik"
+        },
+        "operator-compare": {
+            "match": "\\>\\=|\\<\\=|\\<|\\>|\\=",
+            "name" : "keyword.operator.type.compare.algoritmik"
+        },
+        "operator-bitwise": {
+            "match": "\\s(not|and|or|xor)\\s",
+            "name" : "keyword.operator.type.bitwise.algoritmik"
+        }
     }
-  }
+}
