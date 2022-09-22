@@ -1,5 +1,55 @@
 {
-    "editor.tokenColorCustomizations": {
-      "functions": "#FF0000"
-    }
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "keyword.block.open.algoritmik",
+        "settings": {
+          "foreground": "#fff",
+          "fontStyle": "bold",
+
+        }
+      },
+      {
+        "scope": "keyword.control.conditional.algoritmik",
+        "settings": {
+          "foreground": "#fff",
+          "fontStyle": "underline",
+        }
+      },
+      {
+        "scope": "keyword.operator.type.assignment.algoritmik",
+        "settings": {
+          "foreground": "#fff",
+          "fontStyle": "bold",
+        }
+      },{
+        "scope": "keyword.control.type.flow.algoritmik",
+        "settings": {
+          "foreground": "#fff",
+          "fontStyle": "bold",
+        }
+      },
+      {
+        "scope": "keyword.control.loop.algoritmik",
+        "settings": {
+          "foreground": "#fff",
+          "fontStyle": "underline",
+        }
+      },
+      {
+        "scope": "storage.type.primitive.algoritmik",
+        "settings": {
+          "foreground": "#fff",
+          "fontStyle": "underline",
+        }
+      },
+      {
+        "scope": "constant.language.boolean.algoritmik",
+        "settings": {
+          "fontStyle": "underline",
+        }
+      },
+    ]
   }
+  // "editor.fontLigatures": false
+}

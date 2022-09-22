@@ -6,9 +6,9 @@
     "repository": {
         "main": {
             "patterns": [
-                { "include" : "#comment"},
                 { "include" : "#block"},
                 { "include" : "#function-line"},
+                { "include" : "#program-line"},
                 { "include" : "#square"},
                 { "include" : "#declaration-variable"},
                 { "include" : "#conditional"},
@@ -19,8 +19,10 @@
                 { "include" : "#operator-arithmetic"},
                 { "include" : "#operator-compare"},
                 { "include" : "#operator-bitwise"},
-                { "include" : "#datatype"}
-                
+                { "include" : "#datatype"},
+                { "include" : "#constants-boolean"},
+                { "include" : "#constants-number"},
+                { "include" : "#comment"}
             ]
         },
         "comment": {
@@ -39,17 +41,41 @@
             "match": "kamus lokal|kamus|algoritma",
             "name": "keyword.block.open.algoritmik"
         },
-        "function-declaration": {
-
+        "function-name": {
+            "match": "[_a-zA-Z][_a-zA-Z0-9]*(?=(\\())",
+            "name": "entity.name.function.algoritmik"
+        },
+        "program-name": {
+            "match": "[_a-zA-Z][_a-zA-Z0-9]*(?=(\\s|\\n))",
+            "name": "entity.name.function.program.algoritmik"
         },
         "square" : {
             "match": "\\[|\\]",
             "name": "meta.brace.square.algoritmik"
         },
         "function-line" : {
-            "begin": "program|function|procedure",
-            "end" : "\\n",
-            "name" : "storage.type.function.algoritmik"
+            "begin": "function|procedure",
+            "end": "\\n|\\Z",
+            "name" : "functionline.algoritmik",
+            "beginCaptures": {
+                "0": { "name": "storage.type.function.algoritmik" }
+            },
+            "endCaptures": {
+                "0": { "name": "null" }
+            },
+            "patterns": [{ "include": "#function-name" }, { "include": "#comment" }]
+        },
+        "program-line" : {
+            "begin": "program",
+            "end": "\\n|\\Z",
+            "name" : "programline.algoritmik",
+            "beginCaptures": {
+                "0": { "name": "storage.type.program.algoritmik" }
+            },
+            "endCaptures": {
+                "0": { "name": "null" }
+            },
+            "patterns": [{ "include": "#program-name" }, { "include": "#comment" }]
         },
         "datatype": {
             "match": "integer|boolean|real|character|array",
@@ -76,7 +102,7 @@
             "name": "keyword.control.type.flow.algoritmik"
         },
         "operator-arithmetic": {
-            "match": "((\\+|\\-|\\*)|\\s(mod|div)\\s)",
+            "match": "((\\+|\\-|\\/|\\*)|\\s(mod|div)\\s)",
             "name" : "keyword.operator.type.arithmetic.algoritmik"
         },
         "operator-compare": {
@@ -86,6 +112,14 @@
         "operator-bitwise": {
             "match": "\\s(not|and|or|xor)\\s",
             "name" : "keyword.operator.type.bitwise.algoritmik"
+        },
+        "constants-boolean": {
+            "match": "\\s\\K(false|true)(?=\\s)",
+            "name" : "constant.language.boolean.algoritmik"
+        },
+        "constants-number": {
+            "match": "\\s[+-]?([0-9]*[.])?[0-9]+\\s",
+            "name" : "constant.language.number.algoritmik"
         }
     }
 }

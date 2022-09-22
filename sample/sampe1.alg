@@ -1,6 +1,6 @@
-program
+program asd_meangwa {asddwa}
 function isSimetris(l: List) -> boolean
-{in komentar
+{
 I.S. belum ereksi
 F.S. crot ndak karuan
 }
@@ -14,7 +14,6 @@ algoritma
 		if l.contents[i] != l.contents[l.nEff - i - 1]
 			isValid <- false 
 	-> isValid
-
 function plusTab(l1, l2: List) -> List
 kamus lokal
 	outl: List {penampung output}
@@ -29,4 +28,3 @@ algoritma
 	i traversal [0 .. p]
 		outl.contents[i] ← l1.contents[i] + l2.contents[i]
 	-> outl
-
