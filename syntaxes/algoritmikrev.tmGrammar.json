@@ -28,10 +28,10 @@
 
         "program-section" : {
             "patterns": [
-                { "include": "#program-block" }
+                { "include": "#program-line" }
             ],
             "repository": {
-                "program-block" : {
+                "program-line" : {
                     "begin" : "(?i)program(?-i)",
                     "end"   : "\\n",
                     "name" : "program-line.algoritmik",
@@ -47,7 +47,7 @@
                     ]
                 },
                 "program-name" : {
-                    "match" : "\\W\\w*\\W",
+                    "match" : "[_a-zA-Z][_a-zA-Z0-9]*(?=\\b)",
                     "name" : "entity.name.function.program.algoritmik"
                 }
             }
@@ -62,7 +62,7 @@
                 "function-line" : {
                     "begin" : "(?i)function(?-i)",
                     "end"   : "\\n",
-                    "name" : "program-section.algoritmik",
+                    "name" : "function-line.algoritmik",
                     "beginCaptures": {
                         "0": { "name": "keyword.control.function.algoritmik" }
                     },
@@ -78,7 +78,7 @@
                 "procedure-line" : {
                     "begin" : "(?i)procedure(?-i)",
                     "end"   : "\\n",
-                    "name" : "program-section.algoritmik",
+                    "name" : "procedure -line.algoritmik",
                     "beginCaptures": {
                         "0": { "name": "keyword.control.function.algoritmik" }
                     },
@@ -144,7 +144,8 @@
                         { "include": "#primitive-datatype"},
                         { "include": "#comment"},
                         { "include": "#variable-declaration"},
-                        { "include": "#variable-datatype"}
+                        { "include": "#variable-datatype"},
+                        { "include": "#operator-declaration"}
                     ]
                 },
                 "variable-declaration" : {
@@ -154,6 +155,10 @@
                 "variable-datatype": {
                     "match" : "(?<=\\:\\s*?)[_a-zA-Z][_a-zA-Z0-9]+(?=\\W)",
                     "name": "support.type.declaration.algoritmik"
+                },
+                "operator-declaration": {
+                    "match" : "\\:",
+                    "name" : "keyword.operator.declaration.algoritmik"
                 }
                 
             }
@@ -172,7 +177,50 @@
                         "0": { "name": "keyword.control.algoritma.algoritmik" }
                     },
                     "patterns" : [
+                        { "include": "#comment"},
+                        { "include": "#operator-assignment"},
+                        { "include": "#operator-bitwise"},
+                        { "include": "#operator-comparator"},
+                        { "include": "#operator-arithmetic"},
+                        { "include": "#control-flow"},
+                        { "include": "#control-loop"},
+                        { "include": "#control-return"},
+                        { "include": "#constant-boolean"},
+                        { "include": "#constant-number"},
+                        { "include": "#builtin-function"}
                     ]
+                },
+                "operator-assignment": {
+                    "match" : "\\<\\-+",
+                    "name" : "keyword.operator.assignment.algoritmik"
+                },
+                "operator-bitwise": {
+                    "match" : "(?i)(not|and|or|xor|nor|nand)(?-i)",
+                    "name" : "keyword.operator.bitwise.algoritmik"
+                },
+                "operator-comparator": {
+                    "match" : "\\<|\\>|\\=|\\!",
+                    "name" : "keyword.operator.comparator.algoritmik"
+                },
+                "operator-arithmetic": {
+                    "match" : "(?<=\\b|\\s)(\\+|\\-|\\/|mod|div)(?=\\b|\\s)",
+                    "name" : "keyword.operator.arithmetic.algoritmik"
+                },
+                "control-flow" : {
+                    "match" : "if|then|else|depend on",
+                    "name" : "keyword.control.flow.algoritmik"
+                },
+                "control-loop" : {
+                    "match" : "traversal|repeat|until|while|do|iterate|stop",
+                    "name" : "keyword.control.loop.algoritmik"
+                },
+                "control-return" : {
+                    "match" : "\\-+\\>",
+                    "name" : "keyword.control.return.algoritmik"
+                },
+                "builtin-function" : {
+                    "match" : "output|input",
+                    "name" : "support.function.builtin.algoritmik"
                 }
             }
         },
@@ -180,8 +228,14 @@
         "primitive-datatype": {
             "match" : "integer|boolean|real|character|array", 
             "name" : "storage.type.primitive.algoritmik"
+        },
+        "constant-boolean": {
+            "match": "false|true",
+            "name" : "constant.boolean.algoritmik"
+        },
+        "constant-number": {
+            "match": "\\b[+-]?([0-9]*[.])?[0-9]+\\b",
+            "name" : "constant.number.algoritmik"
         }
-
-        
     }
 }

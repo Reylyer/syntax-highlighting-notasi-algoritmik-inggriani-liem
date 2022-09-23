@@ -40,7 +40,8 @@
                     "Algoritma",
                     "Notasi Algoritmik",
                     "Notasi Algoritma"
-                ]
+                ],
+                "configuration": "./configuration/algoritmik-language-configuration.json"
             },
             {
                 "id": "abc",
