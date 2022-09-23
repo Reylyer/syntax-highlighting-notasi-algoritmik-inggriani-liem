@@ -16,7 +16,7 @@ algoritma
 	-> isValid
 function plusTab (l1, l2: List) -> List
 kamus lokal
-	outl: List {penampung output}
+	asd, outl: List {penampung output}
 	i: integer {iterator}
 	p: integer {panjang list terpanjang}
 algoritma
@@ -28,3 +28,7 @@ algoritma
 	i traversal [0 .. p]
 		outl.contents[i] ← l1.contents[i] + l2.contents[i]
 	-> outl
+
+procedure asd( a, b: integer, c:string)
+kamus lokal
+	asd: integer

@@ -8,9 +8,10 @@
             "patterns" : [
                 { "include": "#program-section"},
                 { "include": "#function-procedure-section"},
-                { "include": "#kamus-block"},
-                { "include": "#algoritma-block"},
+                { "include": "#kamus-section"},
+                { "include": "#algoritma-section"},
                 { "include": "#comment"}
+                
             ]
         },
         "comment" : {
@@ -35,10 +36,10 @@
                     "end"   : "\\n",
                     "name" : "program-line.algoritmik",
                     "beginCaptures": {
-                        "0": { "name": "keyword.type.function.program.algoritmik" }
+                        "0": { "name": "keyword.control.program.algoritmik" }
                     },
                     "endCaptures": {
-                        "0": { "name": "keyword.type.function.program.algoritmik" }
+                        "0": { "name": "null" }
                     },
                     "patterns": [
                         { "include": "#comment" },
@@ -63,13 +64,11 @@
                     "end"   : "\\n",
                     "name" : "program-section.algoritmik",
                     "beginCaptures": {
-                        "0": { "name": "keyword.type.function.algoritmik" }
-                    },
-                    "endCaptures": {
-                        "0": { "name": "null" }
+                        "0": { "name": "keyword.control.function.algoritmik" }
                     },
                     "patterns": [
                         { "include": "#comment"},
+                        { "include": "#primitive-datatype"},
                         { "include": "#function-procedure-name" },
                         { "include": "#parameter-formal"},
                         { "include": "#function-return-operator"},
@@ -77,14 +76,11 @@
                     ]
                 },
                 "procedure-line" : {
-                    "begin" : "(?i)function(?-i)",
+                    "begin" : "(?i)procedure(?-i)",
                     "end"   : "\\n",
                     "name" : "program-section.algoritmik",
                     "beginCaptures": {
-                        "0": { "name": "keyword.type.function.algoritmik" }
-                    },
-                    "endCaptures": {
-                        "0": { "name": "null" }
+                        "0": { "name": "keyword.control.function.algoritmik" }
                     },
                     "patterns": [
                         { "include": "#comment"},
@@ -131,24 +127,60 @@
             }
         },
 
-        "kamus-block" : {
+        "kamus-section" : {
+ 
             "patterns": [
-                { "includes": ""}
+                { "include": "#kamus-block"}
             ],
             "repository" : {
-
-            }
-        },
-        "algoritma-block": {
-            "patterns": [
-
-            ],
-            "repository" : {
+                "kamus-block": {
+                    "begin" : "(?i)(kamus lokal|kamus)(?-i)",
+                    "end" : "\\b(?=(?i)algoritma(?-i))",
+                    "name": "block.kamus.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "keyword.control.kamus.algoritmik" }
+                    },
+                    "patterns" : [
+                        { "include": "#primitive-datatype"},
+                        { "include": "#comment"},
+                        { "include": "#variable-declaration"},
+                        { "include": "#variable-datatype"}
+                    ]
+                },
+                "variable-declaration" : {
+                    "match": "(?<=\\s*)[_a-zA-Z][_a-zA-Z0-9]*?(?=\\s*?(\\:|\\,))",
+                    "name": "variable.other.local.declaration.algoritmik"
+                },
+                "variable-datatype": {
+                    "match" : "(?<=\\:\\s*?)[_a-zA-Z][_a-zA-Z0-9]+(?=\\W)",
+                    "name": "support.type.declaration.algoritmik"
+                }
                 
             }
-        }
+            
+        },
+        "algoritma-section": {
+            "patterns": [
+                { "include": "#algoritma-block"}
+            ],
+            "repository" : {
+                "algoritma-block": {
+                    "begin" : "(?i)algoritma(?-i)",
+                    "end" : "\\b(?=(?i)(procedure|function|program)(?-i))",
+                    "name": "block.algoritma.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "keyword.control.algoritma.algoritmik" }
+                    },
+                    "patterns" : [
+                    ]
+                }
+            }
+        },
 
-        
+        "primitive-datatype": {
+            "match" : "integer|boolean|real|character|array", 
+            "name" : "storage.type.primitive.algoritmik"
+        }
 
         
     }
