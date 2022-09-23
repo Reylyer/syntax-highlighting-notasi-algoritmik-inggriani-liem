@@ -1,5 +1,5 @@
 program asd_meangwa {asddwa}
-function isSimetris(l: List) -> boolean
+function isSimetris (l: List) -> boolean
 {
 I.S. belum ereksi
 F.S. crot ndak karuan
@@ -14,7 +14,7 @@ algoritma
 		if l.contents[i] != l.contents[l.nEff - i - 1]
 			isValid <- false 
 	-> isValid
-function plusTab(l1, l2: List) -> List
+function plusTab (l1, l2: List) -> List
 kamus lokal
 	outl: List {penampung output}
 	i: integer {iterator}

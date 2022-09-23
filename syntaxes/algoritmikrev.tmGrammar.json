@@ -1,0 +1,155 @@
+{
+    "scopeName" : "source.algoritmik",
+    "patterns" : [
+        { "include": "#main"}
+    ],
+    "repository" : {
+        "main" : {
+            "patterns" : [
+                { "include": "#program-section"},
+                { "include": "#function-procedure-section"},
+                { "include": "#kamus-block"},
+                { "include": "#algoritma-block"},
+                { "include": "#comment"}
+            ]
+        },
+        "comment" : {
+            "begin": "\\{",
+            "end": "\\}",
+            "name" : "comment.block.algoritmik",
+            "beginCaptures": {
+                "0": { "name": "punctuation.curlp.open" }
+            },
+            "endCaptures": {
+                "0": { "name": "punctuation.curlp.close" }
+            }
+        },
+
+        "program-section" : {
+            "patterns": [
+                { "include": "#program-block" }
+            ],
+            "repository": {
+                "program-block" : {
+                    "begin" : "(?i)program(?-i)",
+                    "end"   : "\\n",
+                    "name" : "program-line.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "keyword.type.function.program.algoritmik" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "keyword.type.function.program.algoritmik" }
+                    },
+                    "patterns": [
+                        { "include": "#comment" },
+                        { "include": "#program-name" }
+                    ]
+                },
+                "program-name" : {
+                    "match" : "\\W\\w*\\W",
+                    "name" : "entity.name.function.program.algoritmik"
+                }
+            }
+        },
+
+        "function-procedure-section" : {
+            "patterns": [
+                { "include": "#function-line" },
+                { "include": "#procedure-line"}
+            ],
+            "repository": {
+                "function-line" : {
+                    "begin" : "(?i)function(?-i)",
+                    "end"   : "\\n",
+                    "name" : "program-section.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "keyword.type.function.algoritmik" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "null" }
+                    },
+                    "patterns": [
+                        { "include": "#comment"},
+                        { "include": "#function-procedure-name" },
+                        { "include": "#parameter-formal"},
+                        { "include": "#function-return-operator"},
+                        { "include": "#function-return-datatype"}
+                    ]
+                },
+                "procedure-line" : {
+                    "begin" : "(?i)function(?-i)",
+                    "end"   : "\\n",
+                    "name" : "program-section.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "keyword.type.function.algoritmik" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "null" }
+                    },
+                    "patterns": [
+                        { "include": "#comment"},
+                        { "include": "#function-procedure-name" },
+                        { "include": "#parameter-formal"}
+                    ]
+                },
+                "function-procedure-name" : {
+                    "match" : "[_a-zA-Z][_a-zA-Z0-9]*(?=\\s*?\\()",
+                    "name" : "entity.name.function.algoritmik"
+                },
+
+                "parameter-formal" : {
+                    "begin" : "\\(",
+                    "end" : "\\)",
+                    "name": "parameter-formal.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.parameter.parent.open.algoritmik" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.parameter.parent.close.algoritmik" }
+                    },
+                    "patterns" : [
+                        { "include": "#parameter-name"},
+                        { "include": "#parameter-datatype"}
+                    ]
+                },
+                "parameter-name" : {
+                    "match" : "(?<=[\\(\\,]\\s*?)[_a-zA-Z][_a-zA-Z0-9]*?(?=\\s*?(\\:|\\,))",
+                    "name" : "variable.parameter.function.algoritmik"
+                },
+                "parameter-datatype": {
+                    "match" : "(?<=\\:\\s*?)[_a-zA-Z][_a-zA-Z0-9]+(?=\\s*?(\\)|\\,))",
+                    "name": "support.type.parameter.algoritmik"
+                },
+                "function-return-operator" : {
+                    "match" : "\\-+?\\>",
+                    "name": "keyword.operator.return.algoritmik"
+                },
+                "function-return-datatype" : {
+                    "match" : "(?<=\\-+?\\>\\s*?)[_a-zA-Z][_a-zA-Z0-9]*",
+                    "name": "support.type.return.algoritmik"
+                }
+            }
+        },
+
+        "kamus-block" : {
+            "patterns": [
+                { "includes": ""}
+            ],
+            "repository" : {
+
+            }
+        },
+        "algoritma-block": {
+            "patterns": [
+
+            ],
+            "repository" : {
+                
+            }
+        }
+
+        
+
+        
+    }
+}
