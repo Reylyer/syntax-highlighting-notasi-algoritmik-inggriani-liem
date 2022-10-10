@@ -10,5 +10,8 @@
     "typescript.tsc.autoDetect": "off",
     "marquee.widgets.npm-stats.packageNames": [
         "syntax-highlighting-notasi-algoritmik-inggriani-liem"
-    ]
+    ],
+    
+
+        // "editor.fontLigatures": false
 }

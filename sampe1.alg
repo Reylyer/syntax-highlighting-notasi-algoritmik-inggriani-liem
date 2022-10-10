@@ -5,7 +5,7 @@ I.S. belum ereksi
 F.S. crot ndak karuan
 }
 kamus lokal
-	i: integer {iterator} { asd asd asd }
+	i: integer {iterator} { asd asd asd}
 	len: integer {panjang list l}
 	isValid: boolean {variabel status validitas}
 algoritma
@@ -31,13 +31,12 @@ algoritma
 	output(i)
 	-> outl 
 
-procedure asd(input/output a: integer, output c: integer)
+procedure asd(input a: integer, output c: integer)
 kamus lokal
 	asd: integer
 algoritma
 	asd <- p mew_mew
 	panjang <- asd
-	if asd then
-	
+
 
 procedure asdsd( y)

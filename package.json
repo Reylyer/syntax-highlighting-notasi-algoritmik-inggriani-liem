@@ -2,7 +2,7 @@
     "name": "syntax-highlighting-notasi-algoritmik-inggriani-liem",
     "displayName": "syntax highlighting notasi algoritmik inggriani liem",
     "description": "like the title says",
-    "version": "0.0.1",
+    "version": "0.6.9",
 	"publisher": "Shariyl",
 	"private": true,
 	"license": "MIT",
@@ -47,7 +47,19 @@
                 "id": "abc",
                 "extensions": [".abc"]
             }
-        ]
+        ],
+        "themes": [
+			{
+				"label": "Algoritmik Inject Dark",
+				"uiTheme": "vs-dark",
+				"path": "./themes/Algoritmik_inject_dark.tmTheme"
+			},
+            {
+				"label": "Algoritmik Inject Light",
+				"uiTheme": "vs",
+				"path": "./themes/Algoritmik_inject_light.tmTheme"
+			}
+		]
     },
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

@@ -70,7 +70,7 @@
                         { "include": "#comment"},
                         { "include": "#primitive-datatype"},
                         { "include": "#function-procedure-name" },
-                        { "include": "#parameter-formal"},
+                        { "include": "#parameter-formal-function"},
                         { "include": "#function-return-operator"},
                         { "include": "#function-return-datatype"}
                     ]
@@ -78,14 +78,14 @@
                 "procedure-line" : {
                     "begin" : "(?i)procedure(?-i)",
                     "end"   : "\\n",
-                    "name" : "procedure -line.algoritmik",
+                    "name" : "procedure-line.algoritmik",
                     "beginCaptures": {
                         "0": { "name": "keyword.control.function.algoritmik" }
                     },
                     "patterns": [
                         { "include": "#comment"},
                         { "include": "#function-procedure-name" },
-                        { "include": "#parameter-formal"}
+                        { "include": "#parameter-formal-procedure"}
                     ]
                 },
                 "function-procedure-name" : {
@@ -93,10 +93,10 @@
                     "name" : "entity.name.function.algoritmik"
                 },
 
-                "parameter-formal" : {
+                "parameter-formal-function" : {
                     "begin" : "\\(",
                     "end" : "\\)",
-                    "name": "parameter-formal.algoritmik",
+                    "name": "parameter-formal-function.algoritmik",
                     "beginCaptures": {
                         "0": { "name": "punctuation.parameter.parent.open.algoritmik" }
                     },
@@ -105,8 +105,42 @@
                     },
                     "patterns" : [
                         { "include": "#parameter-name"},
+                        { "include": "#primitive-datatype"},
                         { "include": "#parameter-datatype"}
+
                     ]
+                },
+
+                "parameter-formal-procedure" : {
+                    "begin" : "\\(",
+                    "end" : "\\)",
+                    "name": "parameter-formal-procedure.algoritmik",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.parameter.parent.open.algoritmik" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.parameter.parent.close.algoritmik" }
+                    },
+                    "patterns" : [
+                        { "include": "#parameter-procedure-name"},
+                        { "include": "#parameter-procedure-input-output"},
+                        { "include": "#primitive-datatype"},
+                        { "include": "#parameter-procedure-datatype"}
+
+                    ]
+                },
+                
+                "parameter-procedure-input-output": {
+                    "match" : "(?<=\\s*?)(input|output)(?=\\s*?)",
+                    "name": "support.procedure-input-output.algoritmik"
+                },
+                "parameter-procedure-name" : {
+                    "match" : "(?<=\\s*?)[_a-zA-Z][_a-zA-Z0-9]*?(?=\\s*?(\\:))",
+                    "name" : "variable.parameter.procedure.algoritmik"
+                },
+                "parameter-procedure-datatype": {
+                    "match" : "(?<=\\:\\s*?)[_a-zA-Z][_a-zA-Z0-9]+(?=\\s*?(\\)|\\,))",
+                    "name": "support.type.procedure.algoritmik"
                 },
                 "parameter-name" : {
                     "match" : "(?<=[\\(\\,]\\s*?)[_a-zA-Z][_a-zA-Z0-9]*?(?=\\s*?(\\:|\\,))",

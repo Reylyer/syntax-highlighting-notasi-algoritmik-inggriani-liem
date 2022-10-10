@@ -1,81 +1,14 @@
-// {
-//   "editor.tokenColorCustomizations": {
-//     "textMateRules": [
-//       {
-//         "scope": "keyword.control.program.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline bold",
-
-//         }
-//       },
-//       {
-//         "scope": "keyword.control.function.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline bold",
-
-//         }
-//       },
-//       {
-//         "scope": "keyword.control.kamus.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "bold",
-
-//         }
-//       },
-//       {
-//         "scope": "keyword.control.algoritma.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "bold",
-
-//         }
-//       },
-//       {
-//         "scope": "keyword.control.flow.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline",
-//         }
-//       },
-//       {
-//         "scope": "keyword.operator.type.assignment.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "bold",
-//         }
-//       },
-//       {
-//         "scope": "keyword.control.loop.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline",
-//         }
-//       },
-//       {
-//         "scope": "storage.type.primitive.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline",
-//         }
-//       },
-//       {
-//         "scope": "constant.boolean.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline",
-//         }
-//       },
-//       {
-//         "scope": "support.function.builtin.algoritmik",
-//         "settings": {
-//           "foreground": "#fff",
-//           "fontStyle": "underline",
-//         }
-//       },
-//     ]
-//   }
-//   // "editor.fontLigatures": false
-// }
+{
+    "editor.tokenColorCustomizations": {
+      "textMateRules": [
+        // {
+        //   "scope": "support.procedure-input-output.algoritmik",
+        //   "settings": {
+        //     "foreground": "#fff",
+        //     "fontStyle": "underline bold",
+  
+        //   }
+        // },
+        ]
+    }
+}

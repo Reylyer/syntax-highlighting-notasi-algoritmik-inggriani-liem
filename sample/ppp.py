@@ -1,55 +1,46 @@
-# %%
-from sympy import exp, nsolve, Eq, diff, sin, cos
-from sympy.abc import x
-import numpy as np
-import pandas as pd
-import warnings
-
-MAX_ITER = 200
-TOL      = 10**(-5)
-
-
-def newton_raphson( f, f_prime, x_c, tol):
-    df = pd.DataFrame({ 'x_c'    : pd.Series(dtype='float'),
-                        'f(x_c)' : pd.Series(dtype='float'),
-    })
-    deltas = []
-
-    df.loc[len(df.index)] = [x_c, f(x_c)]
-
-    # Loop sampai kita mencapai TOLERANSI atau kita mengambil MAX_STEPS
-    for iter in range(1, MAX_ITER + 1):
-        x_prev = x_c
-        x_c = x_c - f(x_c) / f_prime(x_c)
-
-        deltas.append(abs(x_c - x_prev))
-        df.loc[len(df.index)] = [x_c, f(x_c)]
-
-        if np.abs(f(x_c)) < tol:
-            break
-
+## module trapezoid
+""" 
+Inew = trapezoid(f,a,b,Iold,k).
+Recursive trapezoidal rule:
+old = Integral of f(x) from x = a to b computed by
+trapezoidal rule with 2ˆ(k-1) panels.
+Inew = Same integral computed with 2ˆk panels.
+"""
+def trapezoid(f, a, b, Iold, k):
+    if k == 1:
+        Inew = (f(a) + f(b))*(b - a)/2.0
     else:
-        warnings.warn('Jumlah maksimum langkah yang terlampaui')
+        n = 2**(k -2 ) # Number of new points
+        h = (b - a)/n # Spacing of new points
+        x = a + h/2.0
+        sum = 0.0
+        for _ in range(n):
+            sum = sum + f(x)
+            x=x+h
+        Inew = (Iold + h*sum)/2.0
+        return Inew
 
-    deltas.append("")
-    df["delta"] = deltas
-    df.to_excel("newtonraphson.xlsx", engine='openpyxl')
-    return x_c, iter
 
-# %%
-if __name__ == "__main__":
-    #f(x) =    e^x + x^2  - 3x  - 2
-    # f_x   = exp(x) + x**2 - 3*x - 2
-    # f_x = x**3 - 2*x -5
-    # f_x = sin(x) - 1 + x
-    f_x = x**3 + 4*x + 1
-    f_x_prime = diff( f_x, x, 1)
-    
-    f_x_subs = lambda a: float(f_x.subs(x, a))
-    f_x_prime_subs = lambda a: float(f_x_prime.subs(x, a))
-    f_eq = Eq( f_x,  0)
+""" 
+I,nPanels = romberg(f,a,b,tol=1.0e-6).
+Romberg integration of f(x) from x = a to b.
+Returns the integral and the number of panels used.
+"""
+import numpy as np
+def romberg(f,a,b,tol=1.0e-6):
+    def richardson(r,k):
+        for j in range(k-1,0,-1):
+            const = 4.0**(k-j)
+            r[j] = (const*r[j+1] - r[j])/(const - 1.0)
+        return r
 
-    print("akar dari nsolve :", nsolve( f_eq, x, -1) )
-
-    akar, it = newton_raphson(f_x_subs, f_x_prime_subs, 1, TOL)
-    print(f"akar pendekatan  : {akar} dengan {it} iterasi")
+    r = np.zeros(21)
+    r[1] = trapezoid(f,a,b,0.0,1)
+    r_old = r[1]
+    for k in range(2,21):
+        r[k] = trapezoid(f,a,b,r[k-1],k)
+        r = richardson(r,k)
+        if abs(r[1]-r_old) < tol*max(abs(r[1]),1.0):
+            return r[1],2**(k-1)
+        r_old = r[1]
+    print("Romberg quadrature did not converge")
